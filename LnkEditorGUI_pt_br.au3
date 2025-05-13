@@ -44,11 +44,11 @@ GUICtrlCreateLabel("EXE de destino", 4, 80, 172, 24)
 $inTargetEXE = GUICtrlCreateInput("", 4, 104, 792, 24)
 GUICtrlSetState(-1, $GUI_DROPACCEPTED)
 
-GUICtrlCreateLabel("Argumentos alvo", 4, 148, 172, 24)
+GUICtrlCreateLabel("Argumentos opcionais", 4, 148, 172, 24)
 $editTargetArgs = GUICtrlCreateEdit("", 4, 172, 792, 96, $ES_MULTILINE)
 GUICtrlSetState(-1, $GUI_DROPACCEPTED)
 
-GUICtrlCreateLabel("Diretório de trabalho", 4, 288, 172, 24)
+GUICtrlCreateLabel("Diretório do Executável (Retire o arquivo .EXE)", 4, 288, 280, 24)
 $inWorkingDir = GUICtrlCreateInput("", 4, 312, 792, 24)
 GUICtrlSetState(-1, $GUI_DROPACCEPTED)
 
@@ -56,7 +56,7 @@ GUICtrlCreateLabel("Estado da janela", 4, 356, 172, 24)
 $cmbWindowState = GUICtrlCreateCombo("", 4, 380, 792, 24, $CBS_DROPDOWNLIST)
 GUICtrlSetData(-1, $CmbWinstateNorm & "|" & $CmbWinstateMin & "|" & $CmbWinstateMax, $CmbWinstateNorm) ; add other item snd set a new default
 
-GUICtrlCreateLabel("Arquivo de ícone", 4, 424, 172, 24)
+GUICtrlCreateLabel("Arquivo do ícone", 4, 424, 172, 24)
 $inIconFile = GUICtrlCreateInput("", 4, 448, 650, 24)
 GUICtrlSetState(-1, $GUI_DROPACCEPTED)
 
