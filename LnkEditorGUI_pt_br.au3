@@ -96,7 +96,7 @@ EndFunc
 
 ;---------------------------------------------------------------
 Func _btBrowseForFile()
-	Local $var = FileOpenDialog("Escolha um nome de arquivo LNK", "D:\", "Atalhos LNK (*.lnk)", 2) ; option 2 = dialog remains until valid path/file selected
+	Local $var = FileOpenDialog("Escolha ou crie um nome de arquivo LNK", "D:\", "Atalhos LNK (*.lnk)", 2) ; option 2 = dialog remains until valid path/file selected
 	If @error Then
 		;MsgBox(4096, "", "Nenhum arquivo(s) escolhido(s)")
 	Else
@@ -107,7 +107,7 @@ EndFunc
 
 ;---------------------------------------------------------------
 Func _btBrowseForFile1()
-	Local $var1= FileOpenDialog("Escolha um nome de arquivo EXE", "D:\", "Executáveis EXE (*.exe)", 2) ; option 2 = dialog remains until valid path/file selected
+	Local $var1= FileOpenDialog("Escolha um arquivo EXE", "D:\", "Executáveis EXE (*.exe)", 2) ; option 2 = dialog remains until valid path/file selected
 	If @error Then
 		;MsgBox(4096, "", "Nenhum arquivo(s) escolhido(s)")
 	Else
