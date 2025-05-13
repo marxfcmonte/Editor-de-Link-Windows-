@@ -15,7 +15,7 @@ Global Const $CmbWinstateMax = @SW_SHOWMAXIMIZED & " - Maximizada"
 
 #region - GUI
 
-$GUI = GUICreate("LNKEditorGUI - Editor de Arquivo LNK de Atalho do Windows", 800, 640, -1, -1, BitOr($GUI_SS_DEFAULT_GUI,$WS_MAXIMIZEBOX,$WS_SIZEBOX ), $WS_EX_ACCEPTFILES)
+$GUI = GUICreate("LNK Editor GUI - Editor de Arquivo LNK de Atalho do Windows", 800, 640, -1, -1, BitOr($GUI_SS_DEFAULT_GUI,$WS_MAXIMIZEBOX,$WS_SIZEBOX ), $WS_EX_ACCEPTFILES)
 GUISetOnEvent($GUI_EVENT_CLOSE, '_exit')
 GUISetOnEvent($GUI_EVENT_DROPPED, "On_Drop_InFilename")
 GUISetFont(10)
