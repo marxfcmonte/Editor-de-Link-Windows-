@@ -1,0 +1,15 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Castlevania Lords Of Shadow 2
+Name[pt_BR]=Castlevania Lords Of Shadow 2
+GenericName=Castlevania Lords Of Shadow 2
+GenericName[pt_BR]=Castlevania Lords Of Shadow 2
+Comment=Run Castlevania Lords Of Shadow 2
+Comment[pt_BR]=Executa Castlevania Lords Of Shadow 2
+Icon=/usr/share/pixmaps/castlevania.png
+Terminal=false
+Categories=Game;Jogos;RPG;
+Keywords=Jogo; Windows; Castlevania;
+Keywords[pt_BR]=Castlevania;
+Exec=env WINEPREFIX="/home/usuario/.wine" wine "/home/usuario/CLOS2.lnk"
