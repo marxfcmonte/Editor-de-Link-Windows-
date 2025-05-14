@@ -2,7 +2,7 @@ Resolvi desenvolver para tirar um problema de compartibilidade de um IDE ao cria
 
 Depois, irei colocar esse tópico no site do WineHQ, e ver se pode ser tornar nativo no Wine, pois resolveria o problema de compartibilidade quando o Wine não consegue instalar corretamente os atalhos no menu do usuário , assim, o usuário poderia criar manualmente esses atalhos ou editá-los.
 
-Esse exetável funcina tanto no Windows, qualquer versão, incluindo o XP, como também no Wine (Linux) para editar ou criar arquivos, .lnk, que são usados pelo Windows, com esse aplicativo você poderá criar esses links no Wine e usá-los nos arquivos, .desktop, nativo do Linux com o comando: 
+Esse executável suportado tanto no Windows, qualquer versão, incluindo o XP, como também no Wine (Linux) para editar ou criar arquivos, .lnk, que são usados pelo Windows, com esse aplicativo você poderá criar esses links no Wine e usá-los nos arquivos, .desktop, nativo do Linux com o comando: 
 
 Exec=env WINEPREFIX="/home/usuario/.wine" wine "/home/usuário/arquivo.lnk"
 
