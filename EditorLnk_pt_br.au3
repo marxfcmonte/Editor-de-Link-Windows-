@@ -29,14 +29,17 @@ GUICtrlSetState(-1, $GUI_DROPACCEPTED)
 $btBrowseForFile = GUICtrlCreateButton("Navegar...", 712, 4, 84, 24)
 GUICtrlSetOnEvent(-1, '_btBrowseForFile')
 
-$btBrowseForFile1 = GUICtrlCreateButton("Procurar arquivo EXE", 20, 32,200, 28)
+$btBrowseForFile1 = GUICtrlCreateButton("Procurar arquivo EXE", 20, 32,160, 28)
 GUICtrlSetOnEvent(-1, '_btBrowseForFile1')
 
-$btOpenFile = GUICtrlCreateButton("Carregar arquivo LNK", 300, 32, 200, 28)
+$btBrowseForFile2 = GUICtrlCreateButton("Procurar arquivo ICO", 220, 32,160, 28)
+GUICtrlSetOnEvent(-1, '_btBrowseForFile2')
+
+$btOpenFile = GUICtrlCreateButton("Carregar arquivo LNK", 420, 32, 160, 28)
 GUICtrlSetOnEvent(-1, '_btOpenFile')
 GUICtrlSetResizing($btOpenFile, $GUI_DOCKLEFT)
 
-$btSaveFile = GUICtrlCreateButton("Salvar arquivo LNK", 583, 32, 200, 28)
+$btSaveFile = GUICtrlCreateButton("Salvar arquivo LNK", 620, 32, 160, 28)
 GUICtrlSetOnEvent(-1, '_btSaveFile')
 GUICtrlSetResizing($btSaveFile, $GUI_DOCKRIGHT)
 
@@ -98,7 +101,7 @@ EndFunc
 Func _btBrowseForFile()
 	Local $var = FileOpenDialog("Escolha ou crie um nome de arquivo LNK", "C:\", "Atalhos LNK (*.lnk)", 2) ; option 2 = dialog remains until valid path/file selected
 	If @error Then
-		MsgBox(4096, "", "Nenhum arquivo escolhido")
+		;MsgBox(4096, "", "Nenhum arquivo escolhido")
 	Else
 		$var = StringReplace($var, "|", @CRLF)
 		GUICtrlSetData($inFilename, $var)
@@ -109,11 +112,22 @@ EndFunc
 Func _btBrowseForFile1()
 	Local $var1= FileOpenDialog("Escolha um arquivo EXE", "C:\", "Executáveis EXE (*.exe)", 2) ; option 2 = dialog remains until valid path/file selected
 	If @error Then
-		MsgBox(4096, "", "Nenhum arquivo escolhido")
+		;MsgBox(4096, "", "Nenhum arquivo escolhido")
 	Else
 		$var1 = StringReplace($var1, "|", @CRLF)
 		GUICtrlSetData($inTargetEXE, $var1)
 		GUICtrlSetData($inWorkingDir, $var1)
+	EndIf
+EndFunc
+
+;---------------------------------------------------------------
+Func _btBrowseForFile2()
+	Local $var2= FileOpenDialog("Escolha um arquivo ICO", "C:\", "Imagens ICO (*.ico)", 2) ; option 2 = dialog remains until valid path/file selected
+	If @error Then
+		;MsgBox(4096, "", "Nenhum arquivo escolhido")
+	Else
+		$var2 = StringReplace($var2, "|", @CRLF)
+		GUICtrlSetData($inIconFile, $var2)
 	EndIf
 EndFunc
 
