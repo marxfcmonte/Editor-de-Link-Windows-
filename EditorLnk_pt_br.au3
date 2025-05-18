@@ -3,7 +3,7 @@ Editor de arquivos LNK
 Desenvolvido por Marx F. C. Monte
 
 
-Editor LNK V1.5 (2025)
+Editor LNK V1.3 (2025)
 #ce
 
 #include <WindowsConstants.au3>
@@ -16,66 +16,65 @@ Editor LNK V1.5 (2025)
 #include <Array.au3>
 
 Opt("GUIOnEventMode", 1)
-
-Global Const $CmbWinstateNorm = @SW_SHOWNORMAL & " - Janela normal"
-Global Const $CmbWinstateMin = @SW_SHOWMINNOACTIVE & " - Minimizada"
-Global Const $CmbWinstateMax = @SW_SHOWMAXIMIZED & " - Maximizada"
+Global Const $JanelaNormal = @SW_SHOWNORMAL & " - Janela normal"
+Global Const $JanelaMinizada = @SW_SHOWMINNOACTIVE & " - Minimizada"
+Global Const $JanelaMaximizada = @SW_SHOWMAXIMIZED & " - Maximizada"
 
 #region - GUI
 
 $GUI = GUICreate("Editor LNK - Editor de Arquivo LNK de Atalho do Windows", 800, 640, -1, -1, BitOr($GUI_SS_DEFAULT_GUI,$WS_MAXIMIZEBOX,$WS_SIZEBOX ), $WS_EX_ACCEPTFILES)
-GUISetOnEvent($GUI_EVENT_CLOSE, '_exit')
-GUISetOnEvent($GUI_EVENT_DROPPED, "On_Drop_InFilename")
+GUISetOnEvent($GUI_EVENT_CLOSE, '_sair')
+GUISetOnEvent($GUI_EVENT_DROPPED, "Ligar_InArquivo_Nome")
 GUISetFont(10)
 
 $Status = _GUICtrlStatusBar_Create($GUI)
 
 GUICtrlCreateLabel("Arquivo:", 4, 6, 56, 24)
-$inFilename = GUICtrlCreateInput("", 56, 4, 640, 24)
+$inArquivoNome = GUICtrlCreateInput("", 56, 4, 640, 24)
 GUICtrlSetState(-1, $GUI_DROPACCEPTED)
 
-$btBrowseForFile = GUICtrlCreateButton("Navegar...", 712, 4, 84, 24)
-GUICtrlSetOnEvent(-1, '_btBrowseForFile')
+$btProcura = GUICtrlCreateButton("Navegar...", 712, 4, 84, 24)
+GUICtrlSetOnEvent(-1, '_btProcura')
 
-$btBrowseForFile1 = GUICtrlCreateButton("Procurar arquivo EXE", 20, 32,160, 28)
-GUICtrlSetOnEvent(-1, '_btBrowseForFile1')
+$btProcura1 = GUICtrlCreateButton("Procurar arquivo EXE", 20, 32,160, 28)
+GUICtrlSetOnEvent(-1, '_btProcura1')
 
-$btBrowseForFile2 = GUICtrlCreateButton("Procurar arquivo ICO", 220, 32,160, 28)
-GUICtrlSetOnEvent(-1, '_btBrowseForFile2')
+$btProcura2 = GUICtrlCreateButton("Procurar arquivo ICO", 220, 32,160, 28)
+GUICtrlSetOnEvent(-1, '_btProcura2')
 
-$btOpenFile = GUICtrlCreateButton("Carregar arquivo LNK", 420, 32, 160, 28)
-GUICtrlSetOnEvent(-1, '_btOpenFile')
-GUICtrlSetResizing($btOpenFile, $GUI_DOCKLEFT)
+$btAbreArquivo = GUICtrlCreateButton("Carregar arquivo LNK", 420, 32, 160, 28)
+GUICtrlSetOnEvent(-1, '_btAbreArquivo')
+GUICtrlSetResizing($btAbreArquivo, $GUI_DOCKLEFT)
 
-$btSaveFile = GUICtrlCreateButton("Salvar arquivo LNK", 620, 32, 160, 28)
-GUICtrlSetOnEvent(-1, '_btSaveFile')
-GUICtrlSetResizing($btSaveFile, $GUI_DOCKRIGHT)
+$btSalvaArquivo = GUICtrlCreateButton("Salvar arquivo LNK", 620, 32, 160, 28)
+GUICtrlSetOnEvent(-1, '_btSalvaArquivo')
+GUICtrlSetResizing($btSalvaArquivo, $GUI_DOCKRIGHT)
 
 GUICtrlCreateLabel("EXE de destino", 4, 80, 172, 24)
-$inTargetEXE = GUICtrlCreateInput("", 4, 104, 792, 24)
+$inAlvoEXE = GUICtrlCreateInput("", 4, 104, 792, 24)
 GUICtrlSetState(-1, $GUI_DROPACCEPTED)
 
 GUICtrlCreateLabel("Argumentos opcionais", 4, 148, 172, 24)
-$editTargetArgs = GUICtrlCreateEdit("", 4, 172, 792, 96, $ES_MULTILINE)
+$editaAlvotArgs = GUICtrlCreateEdit("", 4, 172, 792, 96, $ES_MULTILINE)
 GUICtrlSetState(-1, $GUI_DROPACCEPTED)
 
 GUICtrlCreateLabel("Diretório do Executável", 4, 288, 280, 24)
-$inWorkingDir = GUICtrlCreateInput("", 4, 312, 792, 24)
+$inDirExecutavel = GUICtrlCreateInput("", 4, 312, 792, 24)
 GUICtrlSetState(-1, $GUI_DROPACCEPTED)
 
 GUICtrlCreateLabel("Estado da janela", 4, 356, 172, 24)
-$cmbWindowState = GUICtrlCreateCombo("", 4, 380, 792, 24, $CBS_DROPDOWNLIST)
-GUICtrlSetData(-1, $CmbWinstateNorm & "|" & $CmbWinstateMin & "|" & $CmbWinstateMax, $CmbWinstateNorm) ; adicione outro item e defina um novo padrão
+$cmbEstadoJanela = GUICtrlCreateCombo("", 4, 380, 792, 24, $CBS_DROPDOWNLIST)
+GUICtrlSetData(-1, $JanelaNormal & "|" & $JanelaMinizada & "|" & $JanelaMinizada, $JanelaNormal) ; adicione outro item e defina um novo padrão
 
 GUICtrlCreateLabel("Arquivo do ícone", 4, 424, 172, 24)
-$inIconFile = GUICtrlCreateInput("", 4, 448, 650, 24)
+$inArquivoIcon = GUICtrlCreateInput("", 4, 448, 650, 24)
 GUICtrlSetState(-1, $GUI_DROPACCEPTED)
 
 GUICtrlCreateLabel("Índice de ícones", 680, 424, 172, 24)
-$inIconIndex = GUICtrlCreateInput("", 674, 448, 112, 24)
+$inIndiceIcone = GUICtrlCreateInput("", 674, 448, 112, 24)
 
 GUICtrlCreateLabel("Comentário", 4, 492, 172, 24)
-$editComment = GUICtrlCreateEdit("", 4, 516, 792, 96, $ES_MULTILINE)
+$ComentarioEdicao = GUICtrlCreateEdit("", 4, 516, 792, 96, $ES_MULTILINE)
 GUICtrlSetState(-1, $GUI_DROPACCEPTED)
 
 GUISetState(@SW_SHOW, $GUI)
@@ -84,8 +83,8 @@ GUISetState(@SW_SHOW, $GUI)
 
 If $CmdLine[0] > 0 Then
 	;MsgBox(0,0,$CmdLine[1])
-	GUICtrlSetData($inFilename, $CmdLine[1])
-	_btOpenFile()
+	GUICtrlSetData($inArquivoNome, $CmdLine[1])
+	_btAbreArquivo()
 EndIf
 
 While 1
@@ -106,26 +105,26 @@ Func _ClearStatusBar($hWnd, $msg, $iIDTimer, $dwTime)
 EndFunc
 
 ;---------------------------------------------------------------
-Func _btBrowseForFile()
+Func _btProcura()
 	Local $var = FileOpenDialog("Escolha ou crie um nome de arquivo LNK", "C:\", "Atalhos LNK (*.lnk)", 2) ; opção 2 = o diálogo permanece até que um caminho/arquivo válido seja selecionado
 	If @error Then
 		;MsgBox(4096, "", "Nenhum arquivo escolhido")
 	Else
 		$var = StringReplace($var, "|", @CRLF)
-		GUICtrlSetData($inFilename, $var)
+		GUICtrlSetData($inArquivoNome, $var)
 	EndIf
 EndFunc
 
 ;---------------------------------------------------------------
-Func _btBrowseForFile1()
-	Local $var1= FileOpenDialog("Escolha um arquivo EXE", "C:\", "Executáveis EXE (*.exe)", 2) ; opção 2 = o diálogo permanece até que um caminho/arquivo válido seja selecionado
+Func _btProcura1()
+	Local $var1 = FileOpenDialog("Escolha um arquivo EXE", "C:\", "Executáveis EXE (*.exe)", 2) ; opção 2 = o diálogo permanece até que um caminho/arquivo válido seja selecionado
 	If @error Then
 		;MsgBox(4096, "", "Nenhum arquivo escolhido")
 	Else
 		$var4 = StringReplace($var1, "|", @CRLF)
 		Local $var6=StringSplit($var4, "\", @CRLF)
 		$var7 = ""
-		For $i = 1 To $var6[0] - 1 ; percorrer o array $var4
+		For $i = 1 To $var6[0] - 1 ; percorre o array $var6
 			If $i ==  $var6[0] - 1 Then
 				$var5=StringReplace($var6[$i] , "|", @CRLF)
 				$var7 = $var7 & $var5
@@ -134,49 +133,49 @@ Func _btBrowseForFile1()
 				$var7 = $var7 & $var5 & '\'
 			EndIf 
 		 Next
-		GUICtrlSetData($inTargetEXE, $var4)
-		GUICtrlSetData($inWorkingDir, $var7)
+		GUICtrlSetData($inAlvoEXE, $var4)
+		GUICtrlSetData($inDirExecutavel, $var7)
 	EndIf
 EndFunc
 
 ;---------------------------------------------------------------
-Func _btBrowseForFile2()
-	Local $var2= FileOpenDialog("Escolha um arquivo ICO", "C:\", "Imagens ICO (*.ico)", 2) ; opção 2 = o diálogo permanece até que um caminho/arquivo válido seja selecionado
+Func _btProcura2()
+	Local $var2 = FileOpenDialog("Escolha um arquivo ICO", "C:\", "Imagens ICO (*.ico)", 2) ; opção 2 = o diálogo permanece até que um caminho/arquivo válido seja selecionado
 	If @error Then
 		;MsgBox(4096, "", "Nenhum arquivo escolhido")
 	Else
 		$var2 = StringReplace($var2, "|", @CRLF)
-		GUICtrlSetData($inIconFile, $var2)
+		GUICtrlSetData($inArquivoIcon, $var2)
 	EndIf
 EndFunc
 
 ;---------------------------------------------------------------
-Func On_Drop_InFilename()
-	If ( (@GUI_DropId = $inFilename) OR (@GUI_DropId = $inTargetEXE) ) Then
+Func Ligar_InArquivo_Nome()
+	If ( (@GUI_DropId = $inArquivoNome) OR (@GUI_DropId = $inAlvoEXE) ) Then
     	GUICtrlSetData(@GUI_DropId, @GUI_DragFile)
 	EndIf
-	If ( (@GUI_DropId = $inFilename) AND (@GUI_DragFile <> "") ) Then
-		OpenFile(@GUI_DragFile)
+	If ( (@GUI_DropId = $inArquivoNome) AND (@GUI_DragFile <> "") ) Then
+		AbrirArquivo(@GUI_DragFile)
 	EndIf
 EndFunc
 
 ;---------------------------------------------------------------
-Func _btOpenFile()
+Func _btAbreArquivo()
 
-	Local $filename = GUICtrlRead($inFilename)
-	If $filename = "" Then
-		;_btBrowseForFile()
-		;$filename = GUICtrlRead($inFilename)
+	Local $ArquivoNome = GUICtrlRead($inArquivoNome)
+	If $ArquivoNome = "" Then
+		;_btProcura()
+		;$ArquivoNome = GUICtrlRead($inArquivoNome)
 		StatusBarNotify("ERRO: Tentando abrir o arquivo, mas nenhum arquivo foi especificado.")
 		MsgBox(0,"ERRO","Tentando abrir o arquivo, mas nenhum arquivo foi especificado.")
 	Else
-		OpenFile($filename)
+		AbrirArquivo($ArquivoNome)
 	EndIf
 EndFunc
 
 ;---------------------------------------------------------------
-Func OpenFile($filename)
-	Local $lnkArray = FileGetShortcut($filename)
+Func AbrirArquivo($ArquivoNome)
+	Local $lnkArray = FileGetShortcut($ArquivoNome)
 	If Not @error Then
 		;_ArrayDisplay($lnkArray)
 	Else
@@ -184,47 +183,47 @@ Func OpenFile($filename)
 		MsgBox(0,"ERRO","Não é possível abrir o arquivo, verifique o nome do arquivo.")
 		Return
 	EndIf
-	GUICtrlSetData($inTargetEXE, $lnkArray[0])
-	GUICtrlSetData($editTargetArgs, $lnkArray[2])
-	GUICtrlSetData($inWorkingDir, $lnkArray[1])
-	GUICtrlSetData($inIconFile, $lnkArray[4])
-	GUICtrlSetData($inIconIndex, $lnkArray[5])
-	GUICtrlSetData($editComment, $lnkArray[3])
+	GUICtrlSetData($inAlvoEXE, $lnkArray[0])
+	GUICtrlSetData($editaAlvotArgs, $lnkArray[2])
+	GUICtrlSetData($inDirExecutavel, $lnkArray[1])
+	GUICtrlSetData($inArquivoIcon, $lnkArray[4])
+	GUICtrlSetData($inIndiceIcone, $lnkArray[5])
+	GUICtrlSetData($ComentarioEdicao, $lnkArray[3])
 	If($lnkArray[6] = @SW_SHOWNORMAL) Then
-		GUICtrlSetData($cmbWindowState, $CmbWinstateNorm)
+		GUICtrlSetData($cmbEstadoJanela, $JanelaNormal)
 	ElseIf($lnkArray[6] = @SW_SHOWMINNOACTIVE) Then
-		GUICtrlSetData($cmbWindowState, $CmbWinstateMin)
+		GUICtrlSetData($cmbEstadoJanela, $JanelaMinizada)
 	ElseIf($lnkArray[6] = @SW_SHOWMAXIMIZED) Then
-		GUICtrlSetData($cmbWindowState, $CmbWinstateMax)
+		GUICtrlSetData($cmbEstadoJanela, $JanelaMinizada)
 	EndIf
-	StatusBarNotify("Arquivo carregado com sucesso: " & $filename)
+	StatusBarNotify("Arquivo carregado com sucesso: " & $ArquivoNome)
 EndFunc
 
 ;---------------------------------------------------------------
-Func _btSaveFile()
+Func _btSalvaArquivo()
 
-	$filename = GUICtrlRead($inFilename)
-	If $filename = "" Then
+	$ArquivoNome = GUICtrlRead($inArquivoNome)
+	If $ArquivoNome = "" Then
 		StatusBarNotify("ERRO: Tentando salvar, mas nenhum nome de arquivo foi especificado.")
 		MsgBox(0,"ERRO","Tentando salvar, mas nenhum nome de arquivo foi especificado.")
 		Return
 	EndIf
 
-	Local $WinStateToWrite
-	Switch GuiCtrlRead($cmbWindowState)
-	    Case $CmbWinstateNorm
-	    	$WinStateToWrite = @SW_SHOWNORMAL
-	    Case $CmbWinstateMin
-	    	$WinStateToWrite = @SW_SHOWMINNOACTIVE
-	    Case $CmbWinstateMax
-	    	$WinStateToWrite = @SW_SHOWMAXIMIZED
+	Local $JanelaEstadoEscrita
+	Switch GuiCtrlRead($cmbEstadoJanela)
+	    Case $JanelaNormal
+	    	$JanelaEstadoEscrita = @SW_SHOWNORMAL
+	    Case $JanelaMinizada
+	    	$JanelaEstadoEscrita = @SW_SHOWMINNOACTIVE
+	    Case $JanelaMinizada
+	    	$JanelaEstadoEscrita = @SW_SHOWMAXIMIZED
 	    Case Else
-	    	$WinStateToWrite = @SW_SHOWNORMAL
+	    	$JanelaEstadoEscrita = @SW_SHOWNORMAL
 	EndSwitch
 
-	$saveResult = FileCreateShortcut(GuiCtrlRead($inTargetEXE), $filename, GuiCtrlRead($inWorkingDir), GuiCtrlRead($editTargetArgs), GuiCtrlRead($editComment), GuiCtrlRead($inIconFile), "", GuiCtrlRead($inIconIndex), $WinStateToWrite)
-	If($saveResult) Then
-		StatusBarNotify("Arquivo salvo com sucesso em: " & $filename)
+	$salvarResultado = FileCreateShortcut(GuiCtrlRead($inAlvoEXE), $ArquivoNome, GuiCtrlRead($inDirExecutavel), GuiCtrlRead($editaAlvotArgs), GuiCtrlRead($ComentarioEdicao), GuiCtrlRead($inArquivoIcon), "", GuiCtrlRead($inIndiceIcone), $JanelaEstadoEscrita)
+	If($salvarResultado) Then
+		StatusBarNotify("Arquivo salvo com sucesso em: " & $ArquivoNome)
 	Else
 		StatusBarNotify("ERRO: Não é possível salvar o arquivo. Verifique o nome do arquivo e os valores.")
 		MsgBox(0,"ERRO","Não é possível salvar o arquivo, verifique o nome do arquivo e os valores.")
@@ -233,7 +232,7 @@ Func _btSaveFile()
 EndFunc
 
 ;---------------------------------------------------------------
-Func _exit()
+Func _sair()
 	Exit
 EndFunc
 
