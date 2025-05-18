@@ -1,3 +1,11 @@
+#cs 
+Editor de arquivos LNK
+Desenvolvido por Marx F. C. Monte
+
+
+Editor LNK V1.3 (2025)
+#ce
+
 #include <WindowsConstants.au3>
 #include <StaticConstants.au3>
 #include <GUIConstantsEx.au3>
@@ -51,7 +59,7 @@ GUICtrlCreateLabel("Argumentos opcionais", 4, 148, 172, 24)
 $editTargetArgs = GUICtrlCreateEdit("", 4, 172, 792, 96, $ES_MULTILINE)
 GUICtrlSetState(-1, $GUI_DROPACCEPTED)
 
-GUICtrlCreateLabel("Diretório do Executável (Retire o arquivo .EXE)", 4, 288, 280, 24)
+GUICtrlCreateLabel("Diretório do Executável", 4, 288, 280, 24)
 $inWorkingDir = GUICtrlCreateInput("", 4, 312, 792, 24)
 GUICtrlSetState(-1, $GUI_DROPACCEPTED)
 
@@ -114,9 +122,15 @@ Func _btBrowseForFile1()
 	If @error Then
 		;MsgBox(4096, "", "Nenhum arquivo escolhido")
 	Else
-		$var1 = StringReplace($var1, "|", @CRLF)
-		GUICtrlSetData($inTargetEXE, $var1)
-		GUICtrlSetData($inWorkingDir, $var1)
+		$var4 = StringReplace($var1, "|", @CRLF)
+		$var6=StringSplit($var4, "\", @CRLF)
+		$var7 = ""
+		For $i = 1 To $var6[0] - 1 ; Loop through the array returned by StringSplit to display the individual values.
+			$var5=StringReplace($var6[$i] , "|", @CRLF)
+			$var7 = $var7 & $var5 & '\'
+		 Next
+		GUICtrlSetData($inTargetEXE, $var4)
+		GUICtrlSetData($inWorkingDir, $var7)
 	EndIf
 EndFunc
 
