@@ -3,7 +3,7 @@ Editor de arquivos LNK
 Desenvolvido por Marx F. C. Monte
 
 
-Editor LNK V1.3 (2025)
+Editor LNK V1.5 (2025)
 #ce
 
 #include <WindowsConstants.au3>
@@ -65,7 +65,7 @@ GUICtrlSetState(-1, $GUI_DROPACCEPTED)
 
 GUICtrlCreateLabel("Estado da janela", 4, 356, 172, 24)
 $cmbWindowState = GUICtrlCreateCombo("", 4, 380, 792, 24, $CBS_DROPDOWNLIST)
-GUICtrlSetData(-1, $CmbWinstateNorm & "|" & $CmbWinstateMin & "|" & $CmbWinstateMax, $CmbWinstateNorm) ; add other item snd set a new default
+GUICtrlSetData(-1, $CmbWinstateNorm & "|" & $CmbWinstateMin & "|" & $CmbWinstateMax, $CmbWinstateNorm) ; adicione outro item e defina um novo padrão
 
 GUICtrlCreateLabel("Arquivo do ícone", 4, 424, 172, 24)
 $inIconFile = GUICtrlCreateInput("", 4, 448, 650, 24)
@@ -107,7 +107,7 @@ EndFunc
 
 ;---------------------------------------------------------------
 Func _btBrowseForFile()
-	Local $var = FileOpenDialog("Escolha ou crie um nome de arquivo LNK", "C:\", "Atalhos LNK (*.lnk)", 2) ; option 2 = dialog remains until valid path/file selected
+	Local $var = FileOpenDialog("Escolha ou crie um nome de arquivo LNK", "C:\", "Atalhos LNK (*.lnk)", 2) ; opção 2 = o diálogo permanece até que um caminho/arquivo válido seja selecionado
 	If @error Then
 		;MsgBox(4096, "", "Nenhum arquivo escolhido")
 	Else
@@ -118,16 +118,21 @@ EndFunc
 
 ;---------------------------------------------------------------
 Func _btBrowseForFile1()
-	Local $var1= FileOpenDialog("Escolha um arquivo EXE", "C:\", "Executáveis EXE (*.exe)", 2) ; option 2 = dialog remains until valid path/file selected
+	Local $var1= FileOpenDialog("Escolha um arquivo EXE", "C:\", "Executáveis EXE (*.exe)", 2) ; opção 2 = o diálogo permanece até que um caminho/arquivo válido seja selecionado
 	If @error Then
 		;MsgBox(4096, "", "Nenhum arquivo escolhido")
 	Else
 		$var4 = StringReplace($var1, "|", @CRLF)
-		$var6=StringSplit($var4, "\", @CRLF)
+		Local $var6=StringSplit($var4, "\", @CRLF)
 		$var7 = ""
-		For $i = 1 To $var6[0] - 1 ; Loop through the array returned by StringSplit to display the individual values.
-			$var5=StringReplace($var6[$i] , "|", @CRLF)
-			$var7 = $var7 & $var5 & '\'
+		For $i = 1 To $var6[0] - 1 ; percorrer o array $var4
+			If $i ==  $var6[0] - 1 Then
+				$var5=StringReplace($var6[$i] , "|", @CRLF)
+				$var7 = $var7 & $var5
+			Else
+				$var5=StringReplace($var6[$i] , "|", @CRLF)
+				$var7 = $var7 & $var5 & '\'
+			EndIf 
 		 Next
 		GUICtrlSetData($inTargetEXE, $var4)
 		GUICtrlSetData($inWorkingDir, $var7)
@@ -136,7 +141,7 @@ EndFunc
 
 ;---------------------------------------------------------------
 Func _btBrowseForFile2()
-	Local $var2= FileOpenDialog("Escolha um arquivo ICO", "C:\", "Imagens ICO (*.ico)", 2) ; option 2 = dialog remains until valid path/file selected
+	Local $var2= FileOpenDialog("Escolha um arquivo ICO", "C:\", "Imagens ICO (*.ico)", 2) ; opção 2 = o diálogo permanece até que um caminho/arquivo válido seja selecionado
 	If @error Then
 		;MsgBox(4096, "", "Nenhum arquivo escolhido")
 	Else
