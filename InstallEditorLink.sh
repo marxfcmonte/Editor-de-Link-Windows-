@@ -97,8 +97,8 @@ elif [ "$opcao" = "2" ]; then
 	else
 		echo "O diretório não encontrado..."
 	fi
-	if [ -e "/home/$SUDO_USER/.local/share/applications/LinkEditor.desktop" ]; then
-		rm /home/$SUDO_USER/.local/share/applications/LinkEditor.desktop
+	if [ -e "/usr/share/applications/LinkEditor.desktop" ]; then
+		rm /usr/share/applications/LinkEditor.desktop
 	else
 		echo "O arquivo não encontrado..."
 	fi
