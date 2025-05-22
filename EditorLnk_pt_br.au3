@@ -16,9 +16,9 @@ Editor LNK V1.3 (2025)
 #include <Array.au3>
 
 Opt("GUIOnEventMode", 1)
-Global Const $JanelaNormal = @SW_SHOWNORMAL & " - Janela normal"
+Global Const $JanelaNormal = 1 & " - Janela normal"
 Global Const $JanelaMinimizada = 2 & " - Minimizada"
-Global Const $JanelaMaximizada = @SW_SHOWMAXIMIZED & " - Maximizada"
+Global Const $JanelaMaximizada = 3 & " - Maximizada"
 
 #region - GUI
 
