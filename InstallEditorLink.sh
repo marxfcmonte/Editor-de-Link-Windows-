@@ -80,8 +80,7 @@ Exec=env WINEPREFIX="/home/$USER/.wine" wine "/home/$USER/.wine/drive_c/Program 
 EOF
 	
 	echo "Os atalhos na Àrea de trabalho foram criados..."
-	chmod 775 /home/$USER/.local/share/applications/LinkEditor.desktop
-	chmod 775 /home/$USER/Desktop/LinkEditor.desktop
+	chmod +x /home/$USER/.local/share/applications/LinkEditor.desktop /home/$USER/Desktop/LinkEditor.desktop
 	desktop-menu --write-out-global
 elif [ "$opcao" = "2" ]; then
 	echo ""
