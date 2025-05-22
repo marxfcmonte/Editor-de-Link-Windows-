@@ -14,7 +14,7 @@ Editor LNK V1.3 (2025)
 #include <GuiStatusBar.au3>
 #include <Timers.au3>
 #include <Array.au3>
-; @SW_SHOWMINNOACTIVE
+
 Opt("GUIOnEventMode", 1)
 Global Const $JanelaNormal = @SW_SHOWNORMAL & " - Janela normal"
 Global Const $JanelaMinimizada = 2 & " - Minimizada"
