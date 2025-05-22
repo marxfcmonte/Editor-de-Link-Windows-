@@ -6,7 +6,6 @@ Instalador do EditorLink v 1.5 (2025)
 Para a Distribuição Debian 12 e derivados (antiX 23)
 "
 
-
 echo "
 	MENU
 
@@ -23,47 +22,21 @@ if [ "$opcao" = "1" ]; then
 		rm -rf "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink"
 		echo -e "O diretório EditorLink será criado...\n"
 		mkdir "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink"
-	else
-		echo -e "O diretório EditorLink será criado...\n"
-		mkdir "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink"
-	fi
-	if [ -d "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink/Icones" ]; then
-		echo "O diretório Icones existe e será deletado..."
-		rm -rf "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink/Icones"
-		echo -e "O diretório Icones será criado...\n"
 		mkdir "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink/Icones"
-	else
-		echo -e "O diretório Icones será criado...\n"
-		mkdir "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink/Icones"
-	fi
-	if [ -e "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink/EditorLnk_pt_br.exe" ]; then
-		echo -e "O arquivo encontrado... Será atualizado...\n"
-		rm "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink/EditorLnk_pt_br.exe"
 		wget -P "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink"\
-		  https://github.com/marxfcmonte/Editor-de-Link-Windows-/blob/40a8eeb35f2fcba552a9527ea12eab6ba4d35b7b/EditorLnk_pt_br.exe
-	else
-		echo -e "O arquivo não encontrado... Será baixado...\n"
-		rm "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink/EditorLnk_pt_br.exe"
-		wget -P "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink"\
-		  https://github.com/marxfcmonte/Editor-de-Link-Windows-/raw/40a8eeb35f2fcba552a9527ea12eab6ba4d35b7b/EditorLnk_pt_br.exe
-	fi
-	if [ -e "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink/EditorLink.lnk" ]; then
-		echo -e "O arquivo encontrado... Será atualizado...\n"
-		rm "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink/EditorLink.lnk"
+		  https://github.com/marxfcmonte/Editor-de-Link-Windows-/raw/refs/heads/main/EditorLnk_pt_br.exe
 		wget -P "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink"\
 		 https://github.com/marxfcmonte/Editor-de-Link-Windows-/raw/refs/heads/main/EditorLink.lnk
-	else
-		echo -e "O arquivo não encontrado... Será baixado...\n"
-		wget -P "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink"\
-		  https://github.com/marxfcmonte/Editor-de-Link-Windows-/raw/refs/heads/main/EditorLink.lnk
-	fi	
-	if [ -e "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink/Icones/editor.png" ]; then
-		echo -e "O arquivo encontrado... Será atualizado...\n"
-		rm "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink/Icones/editor.png"
 		wget -P "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink/Icones"\
 		  https://raw.githubusercontent.com/marxfcmonte/Editor-de-Link-Windows-/refs/heads/main/Icones/editor.png
 	else
-		echo -e "O arquivo não encontrado... Será baixado...\n"
+		echo -e "O diretório EditorLink será criado...\n"
+		mkdir "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink"
+		mkdir "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink/Icones"
+		wget -P "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink"\
+		  https://github.com/marxfcmonte/Editor-de-Link-Windows-/raw/refs/heads/main/EditorLnk_pt_br.exe
+		wget -P "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink"\
+		 https://github.com/marxfcmonte/Editor-de-Link-Windows-/raw/refs/heads/main/EditorLink.lnk
 		wget -P "/home/$USER/.wine/drive_c/Program Files (x86)/EditorLink/Icones"\
 		  https://raw.githubusercontent.com/marxfcmonte/Editor-de-Link-Windows-/refs/heads/main/Icones/editor.png
 	fi
