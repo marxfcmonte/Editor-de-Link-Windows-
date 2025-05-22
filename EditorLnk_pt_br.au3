@@ -14,10 +14,10 @@ Editor LNK V1.3 (2025)
 #include <GuiStatusBar.au3>
 #include <Timers.au3>
 #include <Array.au3>
-
+; @SW_SHOWMINNOACTIVE
 Opt("GUIOnEventMode", 1)
 Global Const $JanelaNormal = @SW_SHOWNORMAL & " - Janela normal"
-Global Const $JanelaMinizada = @SW_SHOWMINNOACTIVE & " - Minimizada"
+Global Const $JanelaMinimizada = 2 & " - Minimizada"
 Global Const $JanelaMaximizada = @SW_SHOWMAXIMIZED & " - Maximizada"
 
 #region - GUI
@@ -64,7 +64,7 @@ GUICtrlSetState(-1, $GUI_DROPACCEPTED)
 
 GUICtrlCreateLabel("Estado da janela", 4, 356, 172, 24)
 $cmbEstadoJanela = GUICtrlCreateCombo("", 4, 380, 792, 24, $CBS_DROPDOWNLIST)
-GUICtrlSetData(-1, $JanelaNormal & "|" & $JanelaMinizada & "|" & $JanelaMinizada, $JanelaNormal) ; adicione outro item e defina um novo padrão
+GUICtrlSetData(-1, $JanelaNormal & "|" & $JanelaMinimizada & "|" & $JanelaMaximizada, $JanelaNormal) ; adicione outro item e defina um novo padrão
 
 GUICtrlCreateLabel("Arquivo do ícone", 4, 424, 172, 24)
 $inArquivoIcon = GUICtrlCreateInput("", 4, 448, 650, 24)
@@ -192,9 +192,9 @@ Func AbrirArquivo($ArquivoNome)
 	If($lnkArray[6] = @SW_SHOWNORMAL) Then
 		GUICtrlSetData($cmbEstadoJanela, $JanelaNormal)
 	ElseIf($lnkArray[6] = @SW_SHOWMINNOACTIVE) Then
-		GUICtrlSetData($cmbEstadoJanela, $JanelaMinizada)
+		GUICtrlSetData($cmbEstadoJanela, $JanelaMinimizada)
 	ElseIf($lnkArray[6] = @SW_SHOWMAXIMIZED) Then
-		GUICtrlSetData($cmbEstadoJanela, $JanelaMinizada)
+		GUICtrlSetData($cmbEstadoJanela, $JanelaMaximizada)
 	EndIf
 	StatusBarNotify("Arquivo carregado com sucesso: " & $ArquivoNome)
 EndFunc
@@ -213,9 +213,9 @@ Func _btSalvaArquivo()
 	Switch GuiCtrlRead($cmbEstadoJanela)
 	    Case $JanelaNormal
 	    	$JanelaEstadoEscrita = @SW_SHOWNORMAL
-	    Case $JanelaMinizada
+	    Case $JanelaMinimizada
 	    	$JanelaEstadoEscrita = @SW_SHOWMINNOACTIVE
-	    Case $JanelaMinizada
+	    Case $JanelaMaximizada
 	    	$JanelaEstadoEscrita = @SW_SHOWMAXIMIZED
 	    Case Else
 	    	$JanelaEstadoEscrita = @SW_SHOWNORMAL
