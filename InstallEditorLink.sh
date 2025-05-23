@@ -2,7 +2,7 @@
 
 echo "
 Desenvolvido por Marx F. C. Monte
-Instalador do EditorLink v 1.6 (2025)
+Instalador do EditorLink v 1.5 (2025)
 Para a Distribuição Debian 12 e derivados (antiX 23)
 "
 
@@ -24,17 +24,28 @@ read -p "OPÇÃO: " opcao
 if [ "$opcao" = "1" ]; then
 	echo -e "\nInstalação sendo iniciada...\n"
 	if [ -d "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink" ]; then
-		echo -e "O diretório EditorLink existe...\n"
+		echo "O diretório EditorLink existe..."
 	else
 		echo -e "O diretório EditorLink será criado...\n"
 		mkdir "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink"
 		mkdir "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink/Icones"
-		wget -P "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink"\
-		  https://github.com/marxfcmonte/Editor-de-Link-Windows-/raw/refs/heads/main/EditorLnk_pt_br.exe
-		wget -P "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink"\
-		 https://github.com/marxfcmonte/Editor-de-Link-Windows-/raw/refs/heads/main/EditorLink.lnk
-		wget -P "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink/Icones"\
-		  https://raw.githubusercontent.com/marxfcmonte/Editor-de-Link-Windows-/refs/heads/main/Icones/editor.png
+		cat <<EOF > "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)\
+/EditorLink/EditorLink_icones"
+https://github.com/marxfcmonte/Editor-de-Link-Windows-/raw/refs/heads/\
+main/EditorLnk_pt_br.exe
+https://github.com/marxfcmonte/Editor-de-Link-Windows-/raw/refs/heads\
+/main/EditorLink.lnk
+https://raw.githubusercontent.com/marxfcmonte/Editor-de-Link-Windows-\
+/refs/heads/main/Icones/editor.png				
+EOF
+		wget -i "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)\
+/EditorLink/EditorLink_icones" -P /tmp/
+		mv /tmp/EditorLnk_pt_br.exe  "/home/$SUDO_USER/.wine/drive_c/\
+Program Files (x86)/EditorLink"
+		mv /tmp/EditorLink.lnk "/home/$SUDO_USER/.wine/drive_c/Program\
+ Files (x86)/EditorLink"
+		mv /tmp/editor.png "/home/$SUDO_USER/.wine/drive_c/Program\
+ Files (x86)/EditorLink/Icones"
 	fi
 	cat <<EOF > /usr/share/applications/LinkEditor.desktop
 [Desktop Entry]
@@ -46,13 +57,16 @@ GenericName=Link Editor (Windows)
 GenericName[pt_BR]=Editor de Link (Windows) 
 Comment=Run Link Editor (Windows) 
 Comment[pt_BR]=Executa Editor de Link (Windows)
-Icon=/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink/Icones/editor.png
+Icon=/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink/\
+Icones/editor.png
 Terminal=false
 Categories=GTK;Development;IDE;TextEditor;
 Keywords=Text;Editor;
 Keywords[fr_BE]=Text;Editor;texte;éditeur;
-Keywords[pt_BR]=Editor;Texto;Ambiente de Desenvolvimento Integrado;IDE;Ferramenta de Programação;
-Exec=env WINEPREFIX="/home/$SUDO_USER/.wine" wine "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink/EditorLink.lnk"
+Keywords[pt_BR]=Editor;Texto;Ambiente de Desenvolvimento Integrado;\
+IDE;Ferramenta de Programação;
+Exec=env WINEPREFIX="/home/$SUDO_USER/.wine" wine "/home/$SUDO_USER\
+/.wine/drive_c/Program Files (x86)/EditorLink/EditorLink.lnk"
 
 EOF
 	cat <<EOF > /home/$SUDO_USER/Desktop/LinkEditor.desktop
@@ -65,13 +79,16 @@ GenericName=Link Editor (Windows)
 GenericName[pt_BR]=Editor de Link (Windows) 
 Comment=Run Link Editor (Windows) 
 Comment[pt_BR]=Executa Editor de Link (Windows)
-Icon=/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink/Icones/editor.png
+Icon=/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink\
+/Icones/editor.png
 Terminal=false
 Categories=GTK;Development;IDE;TextEditor;
 Keywords=Text;Editor;
 Keywords[fr_BE]=Text;Editor;texte;éditeur;
-Keywords[pt_BR]=Editor;Texto;Ambiente de Desenvolvimento Integrado;IDE;Ferramenta de Programação;
-Exec=env WINEPREFIX="/home/$SUDO_USER/.wine" wine "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink/EditorLink.lnk"
+Keywords[pt_BR]=Editor;Texto;Ambiente de Desenvolvimento Integrado;IDE\
+;Ferramenta de Programação;
+Exec=env WINEPREFIX="/home/$SUDO_USER/.wine" wine "/home/$SUDO_USER\
+/.wine/drive_c/Program Files (x86)/EditorLink/EditorLink.lnk"
 
 EOF
 	
