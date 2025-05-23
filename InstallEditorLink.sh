@@ -2,7 +2,7 @@
 
 echo "
 Desenvolvido por Marx F. C. Monte
-Instalador do EditorLink v 1.5 (2025)
+Instalador do EditorLink v 1.6 (2025)
 Para a Distribuição Debian 12 e derivados (antiX 23)
 "
 
@@ -24,17 +24,7 @@ read -p "OPÇÃO: " opcao
 if [ "$opcao" = "1" ]; then
 	echo -e "\nInstalação sendo iniciada...\n"
 	if [ -d "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink" ]; then
-		echo "O diretório EditorLink existe e será deletado..."
-		rm -rf "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink"
-		echo -e "O diretório EditorLink será criado...\n"
-		mkdir "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink"
-		mkdir "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink/Icones"
-		wget -P "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink"\
-		  https://github.com/marxfcmonte/Editor-de-Link-Windows-/raw/refs/heads/main/EditorLnk_pt_br.exe
-		wget -P "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink"\
-		 https://github.com/marxfcmonte/Editor-de-Link-Windows-/raw/refs/heads/main/EditorLink.lnk
-		wget -P "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink/Icones"\
-		  https://raw.githubusercontent.com/marxfcmonte/Editor-de-Link-Windows-/refs/heads/main/Icones/editor.png
+		echo -e "O diretório EditorLink existe...\n"
 	else
 		echo -e "O diretório EditorLink será criado...\n"
 		mkdir "/home/$SUDO_USER/.wine/drive_c/Program Files (x86)/EditorLink"
